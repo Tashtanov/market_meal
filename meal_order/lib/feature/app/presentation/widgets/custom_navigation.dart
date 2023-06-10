@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:meal_order/core/helpers/theme_helper.dart';
 
-// import '../../../../core/injection/injection.dart';
+import '../../../../core/helpers/screen_util.dart';
+import '../../../../core/injection/injection.dart';
 import '../bloc/app_bloc.dart';
 
 class CustomNavigationBar extends StatelessWidget {
   final int currentIndex;
-  // final AppBloc appBloc = getIt<AppBloc>();
+  final AppBloc appBloc = getIt<AppBloc>();
 
   CustomNavigationBar({
     super.key,
@@ -14,73 +18,60 @@ class CustomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NavigationBar(
+    MyScreenUtil.init(context);
+    return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
       backgroundColor: Colors.white,
-      selectedIndex: currentIndex,
-      onDestinationSelected: (index) {
-        // appBloc.add(CurrentPageIndexChanged(index: index));
+      showSelectedLabels: true,
+      showUnselectedLabels: true,
+      selectedItemColor: ThemeHelper.primary,
+      selectedLabelStyle: TextHelper.normal10,
+      unselectedLabelStyle: TextHelper.normal10,
+      selectedIconTheme: const IconThemeData(
+        color: ThemeHelper.primary,
+      ),
+      unselectedIconTheme: const IconThemeData(
+        color: Colors.black87,
+      ),
+      enableFeedback: false,
+      currentIndex: currentIndex,
+      onTap: (index) {
+        appBloc.add(CurrentPageIndexChanged(index: index));
       },
-      height: 60,
-      destinations: const [
-        NavigationDestination(
-          icon: Icon(Icons.home_outlined),
-          label: '',
+      items: [
+        BottomNavigationBarItem(
+          activeIcon: SvgPicture.asset(
+            "assets/images/svg/home.svg",
+            color: ThemeHelper.primary,
+          ),
+          icon: SvgPicture.asset("assets/images/svg/home.svg"),
+          label: 'Главная,',
         ),
-        NavigationDestination(
-          icon: Icon(Icons.qr_code_scanner_outlined),
-          label: '',
+        BottomNavigationBarItem(
+          activeIcon: SvgPicture.asset(
+            "assets/images/svg/search.svg",
+            color: ThemeHelper.primary,
+          ),
+          icon: SvgPicture.asset("assets/images/svg/search.svg"),
+          label: 'Поиск',
         ),
-        NavigationDestination(
-          icon: Icon(Icons.local_grocery_store_outlined),
-          label: '',
+        BottomNavigationBarItem(
+          activeIcon: SvgPicture.asset(
+            "assets/images/svg/basket.svg",
+            color: ThemeHelper.primary,
+          ),
+          icon: SvgPicture.asset("assets/images/svg/basket.svg"),
+          label: 'Корзина',
         ),
-        NavigationDestination(
-          icon: Icon(Icons.receipt_outlined),
-          label: '',
-        ),
-        NavigationDestination(
-          icon: Icon(Icons.person_outline),
-          label: '',
+        BottomNavigationBarItem(
+          activeIcon: SvgPicture.asset(
+            "assets/images/svg/profile.svg",
+            color: ThemeHelper.primary,
+          ),
+          icon: SvgPicture.asset("assets/images/svg/profile.svg"),
+          label: 'Аккаунт',
         ),
       ],
     );
-    // BottomNavigationBar(
-    //     type: BottomNavigationBarType.fixed,
-    //     backgroundColor: Colors.white,
-    //     showSelectedLabels: false,
-    //     showUnselectedLabels: false,
-    //     selectedIconTheme: const IconThemeData(
-    //       color: Colors.black,
-    //     ),
-    //     unselectedIconTheme: const IconThemeData(
-    //       color: Colors.black87,
-    //     ),
-    //     enableFeedback: false,
-    //     currentIndex: currentIndex,
-    //     onTap: (index) {
-    //       appBloc.add(CurrentPageIndexChanged(index: index));
-    //     },
-    //     items: const [
-    //       BottomNavigationBarItem(
-    //         icon: Icon(Icons.home),
-    //         label: '',
-    //       ),
-    //       BottomNavigationBarItem(
-    //         icon: Icon(Icons.qr_code_scanner_outlined),
-    //         label: '',
-    //       ),
-    //       BottomNavigationBarItem(
-    //         icon: Icon(Icons.local_grocery_store_outlined),
-    //         label: '',
-    //       ),
-    //       BottomNavigationBarItem(
-    //         icon: Icon(Icons.receipt),
-    //         label: '',
-    //       ),
-    //       BottomNavigationBarItem(
-    //         icon: Icon(Icons.person_outline),
-    //         label: '',
-    //       )
-    //     ]);
   }
 }
