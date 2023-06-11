@@ -11,6 +11,8 @@ abstract class ThemeHelper {
   static const Color background = Color(0xffEDF1F9);
   static const Color blue = Color(0xff347af0);
   static const Color light = Color(0xfffbfcfd);
+  static const Color boxBackground = Color(0xffF8F7F5);
+  static const Color scaffoldBackground = Color(0xffD8D8D8);
   static const Color black = Color(0xff000000);
 }
 
