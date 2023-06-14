@@ -31,10 +31,10 @@ class _HomePageState extends State<HomePage> {
         child: BlocBuilder<HomeBloc, HomeState>(
           bloc: _bloc,
           builder: (context, state) {
-            print(state.sections.length);
+            // print(state.sections.length);
             return ListView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 16).r,
-              itemCount: 3,
+              itemCount: 2,
               shrinkWrap: true,
               itemBuilder: (BuildContext context, int index) {
                 if (index == 0) {
@@ -49,3 +49,27 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+// FutureBuilder<dynamic>(
+//             future: client.getSections(),
+//             builder: (context, snapshot) {
+//               if (snapshot.connectionState == ConnectionState.done) {
+//                 print(snapshot.data);
+//                 // final List<Section>? sections = snapshot.data;
+//                 return ListView.builder(
+//                   padding: const EdgeInsets.symmetric(horizontal: 16).r,
+//                   itemCount: 2,
+//                   shrinkWrap: true,
+//                   itemBuilder: (BuildContext context, int index) {
+//                     if (index == 0) {
+//                       return CustomAppBar();
+//                     }
+//                     return SectionCard();
+//                   },
+//                 );
+//               } else {
+//                 return const Center(
+//                   child: CircularProgressIndicator(),
+//                 );
+//               }
+//             }),
